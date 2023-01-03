@@ -2,8 +2,9 @@ import { Wrapper } from './styles';
 
 const Transaction = ({ transaction }) => (
   <Wrapper value={transaction.value}>
-    Label: {transaction.label}
-    <p>Value: {transaction.value}</p>
+    <p>{transaction.date}</p>
+    <p>{transaction.value.toFixed(2)}</p>
+    <p>{transaction.comments}</p>
     <br />
   </Wrapper>
 );

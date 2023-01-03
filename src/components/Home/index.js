@@ -16,13 +16,14 @@ class Home extends Component {
     this.onChangeForm = this.onChangeForm.bind(this);
   }
 
-  onChangeForm = (value) => {
+  onChangeForm = ({ value, date, comments }) => {
     this.setState((prevState) => ({
       balance: prevState.balance + Number(value),
       transactions: [
         {
-          value,
-          label: 'Change',
+          value: +value,
+          comments,
+          date,
           id: ++id,
         },
         ...prevState.transactions,
