@@ -1,5 +1,10 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Wrapper } from './styles';
+import { Input } from './styles';
+import { Button } from './styles';
+import { Comment } from './styles';
+import { Row } from './styles';
 
 class Form extends Component {
   constructor() {
@@ -7,7 +12,7 @@ class Form extends Component {
 
     this.state = {
       value: '',
-      date: '',
+      date: new Date().toISOString().slice(0, 10),
       comments: '',
     };
   }
@@ -31,30 +36,34 @@ class Form extends Component {
 
   render() {
     return (
-      <div>
+      <Wrapper>
         <form onSubmit={this.onSubmit}>
-          <input
-            name="value"
-            type="number"
-            placeholder="Amount"
-            onChange={this.onChangeInput}
-            value={this.state.value}
-          ></input>
-          <input
-            name="date"
-            type="date"
-            onChange={this.onChangeInput}
-            value={this.state.date}
-          ></input>
-          <textarea
-            name="comments"
-            type="text"
-            onChange={this.onChangeInput}
-            value={this.state.comments}
-          ></textarea>
-          <button>Save</button>
+          <Row>
+            <Input
+              name="value"
+              type="number"
+              placeholder="Amount"
+              onChange={this.onChangeInput}
+              value={this.state.value}
+            ></Input>
+            <Input
+              name="date"
+              type="date"
+              onChange={this.onChangeInput}
+              value={this.state.date}
+            ></Input>
+          </Row>
+          <Row>
+            <Button>Save</Button>
+            <Comment
+              name="comments"
+              type="text"
+              onChange={this.onChangeInput}
+              value={this.state.comments}
+            ></Comment>
+          </Row>
         </form>
-      </div>
+      </Wrapper>
     );
   }
 }
