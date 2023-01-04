@@ -5,7 +5,6 @@ import { Input } from './styles';
 import { Button } from './styles';
 import { Comment } from './styles';
 import { Row } from './styles';
-import Transaction from '../Transaction';
 
 class Form extends Component {
   constructor() {
@@ -20,7 +19,6 @@ class Form extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state);
     this.props.onChangeForm(this.state);
     this.setState({
       value: '',
