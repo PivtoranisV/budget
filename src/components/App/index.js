@@ -4,6 +4,7 @@ import Statistics from '../Statistics';
 import About from '../About';
 import { GlobalStyle } from './styles';
 import Header from '../Header';
+import Counter from '../Counter';
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
         <Route path="statistics" element={<Statistics />} />
         <Route path="about" element={<About />} />
       </Routes>
+      <Counter />
     </>
   );
 };

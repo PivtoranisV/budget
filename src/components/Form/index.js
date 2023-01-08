@@ -1,71 +1,66 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Wrapper } from './styles';
-import { Input } from './styles';
-import { Button } from './styles';
-import { Comment } from './styles';
-import { Row } from './styles';
+import { Wrapper, Input, Button, Comment, Row } from './styles';
 
-class Form extends Component {
-  constructor() {
-    super();
+const Form = (props) => {
+  const [form, setForm] = useState({
+    value: '',
+    date: new Date().toISOString().slice(0, 10),
+    comments: '',
+  });
 
-    this.state = {
-      value: '',
-      date: new Date().toISOString().slice(0, 10),
-      comments: '',
-    };
-  }
-
-  onSubmit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
-    this.props.onChangeForm(this.state);
-    this.setState({
+
+    props.onChangeForm(form);
+
+    setForm({
+      ...form,
       value: '',
       comments: '',
     });
   };
 
-  onChangeInput = (e) => {
+  const onChangeInput = (e) => {
     const { value, name } = e.target;
-    this.setState({
+
+    setForm({
+      ...form,
       [name]: value,
     });
   };
 
-  render() {
-    return (
-      <Wrapper>
-        <form onSubmit={this.onSubmit}>
-          <Row>
-            <Input
-              name="value"
-              type="number"
-              placeholder="Amount"
-              onChange={this.onChangeInput}
-              value={this.state.value}
-            ></Input>
-            <Input
-              name="date"
-              type="date"
-              onChange={this.onChangeInput}
-              value={this.state.date}
-            ></Input>
-          </Row>
-          <Row>
-            <Button>Save</Button>
-            <Comment
-              name="comments"
-              type="text"
-              onChange={this.onChangeInput}
-              value={this.state.comments}
-            ></Comment>
-          </Row>
-        </form>
-      </Wrapper>
-    );
-  }
-}
+  return (
+    <Wrapper>
+      <form onSubmit={onSubmit}>
+        <Row>
+          <Input
+            name="value"
+            type="number"
+            placeholder="Amount"
+            onChange={onChangeInput}
+            value={form.value}
+          ></Input>
+          <Input
+            name="date"
+            type="date"
+            onChange={onChangeInput}
+            value={form.date}
+          ></Input>
+        </Row>
+        <Row>
+          <Button>Save</Button>
+          <Comment
+            name="comments"
+            type="text"
+            onChange={onChangeInput}
+            value={form.comments}
+          ></Comment>
+        </Row>
+      </form>
+    </Wrapper>
+  );
+};
 
 Form.propTypes = {
   onChangeForm: PropTypes.func,
