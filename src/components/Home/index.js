@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import Balance from '../Balance';
 import Form from '../Form';
 import Transactions from '../Transactions';
@@ -6,41 +6,32 @@ import { Wrapper } from './styles';
 
 let id = 0;
 
-class Home extends Component {
-  constructor() {
-    super();
-    this.state = {
-      balance: 0,
-      transactions: [],
-    };
-    this.onChangeForm = this.onChangeForm.bind(this);
-  }
+const Home = () => {
+  const [balance, setBalance] = useState(0);
+  const [transactions, setTransactions] = useState([]);
 
-  onChangeForm = ({ value, date, comments }) => {
-    this.setState((prevState) => ({
-      balance: prevState.balance + Number(value),
-      transactions: [
-        {
-          value: +value,
-          comments,
-          date,
-          id: ++id,
-        },
-        ...prevState.transactions,
-      ],
-    }));
+  const onChangeForm = ({ value, date, comments }) => {
+    setBalance((prevBalance) => prevBalance + Number(value));
+
+    setTransactions((prevTransactions) => [
+      ...prevTransactions,
+      {
+        value: +value,
+        comments,
+        date,
+        id: ++id,
+      },
+    ]);
   };
 
-  render() {
-    return (
-      <Wrapper>
-        <Balance balance={this.state.balance} />
-        <Form onChangeForm={this.onChangeForm} />
-        <hr />
-        <Transactions transactions={this.state.transactions} />
-      </Wrapper>
-    );
-  }
-}
+  return (
+    <Wrapper>
+      <Balance balance={balance} />
+      <Form onChangeForm={onChangeForm} />
+      <hr />
+      <Transactions transactions={transactions} />
+    </Wrapper>
+  );
+};
 
 export default Home;
